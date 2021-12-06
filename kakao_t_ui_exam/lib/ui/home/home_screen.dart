@@ -25,12 +25,14 @@ class HomeScreen extends StatelessWidget {
     final PageController controller = PageController(initialPage: 0);
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Column(
-        children: [
-          ..._buildMenu(),
-          _buildAds(controller),
-          _buildNotice(),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            ..._buildMenu(),
+            _buildAds(controller),
+            _buildNotice(),
+          ],
+        ),
       ),
     );
   }
@@ -185,10 +187,9 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildNotice() {
-    return Expanded(
-      child: ListView(
-        children: List.generate(50, (index) => Text('공지 $index')),
-      ),
+    return ListView(
+      shrinkWrap: true, // 스크롤이 안 되고, 사이즈가 있는 Column 처럼 동작
+      children: List.generate(50, (index) => Text('공지 $index')),
     );
   }
 }
