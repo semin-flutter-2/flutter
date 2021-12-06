@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:kakao_t_ui_exam/ui/home/components/ad.dart';
+import 'package:kakao_t_ui_exam/data/fake_data.dart';
+import 'package:kakao_t_ui_exam/model/ad.dart';
+import 'package:kakao_t_ui_exam/ui/home/components/ad_view.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -151,20 +154,18 @@ class HomeScreen extends StatelessWidget {
             child: PageView(
               scrollDirection: Axis.horizontal,
               controller: controller,
-              children: <Widget>[
-                Ad(
-                  title: '일어나 회사가야지',
-                  color: Colors.yellow,
-                ),
-                Ad(
-                  title: '제목',
-                  color: Colors.green,
-                ),
-                Ad(
-                  title: '제목',
-                  color: Colors.red,
-                ),
-              ],
+              children: fakeAds.map((Ad e) => AdView(ad: e)).toList(),
+              // children: <Widget>[
+              //   AdView(
+              //     ad: fakeAds[0],
+              //   ),
+              //   AdView(
+              //     ad: fakeAds[1],
+              //   ),
+              //   AdView(
+              //     ad: fakeAds[2],
+              //   ),
+              // ],
             ),
           ),
         ],
