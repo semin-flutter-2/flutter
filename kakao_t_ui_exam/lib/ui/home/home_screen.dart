@@ -189,7 +189,13 @@ class HomeScreen extends StatelessWidget {
     return ListView(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      children: List.generate(50, (index) => Text('공지 $index')),
+      children: List.generate(50, (index) => ListTile(
+        leading: Icon(Icons.notifications),
+        title: Text('공지 $index'),
+        trailing: Icon(
+          Icons.navigate_next_outlined,
+        ),
+      )),
     );
   }
 }
