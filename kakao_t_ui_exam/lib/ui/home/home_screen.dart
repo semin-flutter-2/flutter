@@ -25,14 +25,12 @@ class HomeScreen extends StatelessWidget {
     final PageController controller = PageController(initialPage: 0);
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            ..._buildMenu(),
-            _buildAds(controller),
-            _buildNotice(),
-          ],
-        ),
+      child: ListView(
+        children: [
+          ..._buildMenu(),
+          _buildAds(controller),
+          _buildNotice(),
+        ],
       ),
     );
   }
@@ -187,8 +185,10 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildNotice() {
+    // ListView 보다 Column만 두는게 더 깔끔하다
     return ListView(
-      shrinkWrap: true, // 스크롤이 안 되고, 사이즈가 있는 Column 처럼 동작
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       children: List.generate(50, (index) => Text('공지 $index')),
     );
   }
