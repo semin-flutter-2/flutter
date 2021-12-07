@@ -9,6 +9,8 @@ class CounterScreen extends StatefulWidget {
 }
 
 class _CounterScreenState extends State<CounterScreen> {
+  int _count = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +19,11 @@ class _CounterScreenState extends State<CounterScreen> {
       ),
       body: _buildBody(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          setState(() {
+            _count++;
+          });
+        },
         child: Icon(Icons.add),
       ),
     );
@@ -26,7 +32,7 @@ class _CounterScreenState extends State<CounterScreen> {
   Widget _buildBody() {
     return Center(
       child: Text(
-        '0',
+        '$_count',
         style: TextStyle(fontSize: 48),
       ),
     );
