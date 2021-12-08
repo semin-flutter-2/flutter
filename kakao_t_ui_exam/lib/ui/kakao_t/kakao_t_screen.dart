@@ -43,19 +43,7 @@ class KakaoTScreen extends StatelessWidget {
       shrinkWrap: true,
       childAspectRatio: 2.5 / 3.2,
       physics: NeverScrollableScrollPhysics(),
-      children: fakeMenus.map((menu) {
-        return GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => DetailScreen(
-                menu: menu,
-              )),
-            );
-          },
-          child: MenuWidget(menu: menu),
-        );
-      }).toList(),
+      children: fakeMenus.map((menu) => MenuWidget(menu: menu)).toList(),
     );
   }
 
