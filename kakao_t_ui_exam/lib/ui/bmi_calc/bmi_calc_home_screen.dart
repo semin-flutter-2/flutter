@@ -22,9 +22,7 @@ class BmiCalcHomeScreen extends StatelessWidget {
                 // 버튼 눌렀을 때
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => BmiCalcResultScreen()
-                  ),
+                  MaterialPageRoute(builder: (context) => BmiCalcResultScreen()),
                 );
               },
               child: Text('계산'),
