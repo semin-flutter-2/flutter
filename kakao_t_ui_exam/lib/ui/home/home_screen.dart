@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kakao_t_ui_exam/ui/bmi_calc/bmi_calc_home_screen.dart';
 import 'package:kakao_t_ui_exam/ui/counter/counter_screen.dart';
 import 'package:kakao_t_ui_exam/ui/kakao_t/kakao_t_screen.dart';
 
@@ -13,6 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final _screens = [
     KakaoTScreen(),
     CounterScreen(),
+    BmiCalcHomeScreen(),
   ];
 
   int _index = 0;
@@ -36,6 +38,10 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.watch),
             label: '카운터',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.fifteen_mp_outlined),
+            label: 'BMI',
           ),
         ],
       ),
