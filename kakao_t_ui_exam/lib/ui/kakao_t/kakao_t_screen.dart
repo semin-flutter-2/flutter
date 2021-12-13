@@ -1,13 +1,20 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:kakao_t_ui_exam/data/fake_data.dart';
 import 'package:kakao_t_ui_exam/model/ad.dart';
-import 'package:kakao_t_ui_exam/ui/kakao_t/detail_screen.dart';
 
 import 'components/ad_view.dart';
 import 'components/menu_widget.dart';
 
-class KakaoTScreen extends StatelessWidget {
+class KakaoTScreen extends StatefulWidget {
   const KakaoTScreen({Key key}) : super(key: key);
+
+  @override
+  State<KakaoTScreen> createState() => _KakaoTScreenState();
+}
+
+class _KakaoTScreenState extends State<KakaoTScreen> {
+  int _index = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -48,24 +55,41 @@ class KakaoTScreen extends StatelessWidget {
   }
 
   Widget _buildAds(PageController controller) {
-    return SizedBox(
-      height: 150,
-      child: PageView(
-        scrollDirection: Axis.horizontal,
-        controller: controller,
-        children: fakeAds.map((Ad e) => AdView(ad: e)).toList(),
-        // children: <Widget>[
-        //   AdView(
-        //     ad: fakeAds[0],
-        //   ),
-        //   AdView(
-        //     ad: fakeAds[1],
-        //   ),
-        //   AdView(
-        //     ad: fakeAds[2],
-        //   ),
-        // ],
-      ),
+    return Stack(
+      children: [
+        CarouselSlider(
+          options: CarouselOptions(
+              height: 150,
+              viewportFraction: 0.8,
+              enableInfiniteScroll: true,
+              autoPlay: true,
+              autoPlayCurve: Curves.ease,
+              onPageChanged: (index, _) {
+                setState(() {
+                  _index = index;
+                });
+              }),
+          items: fakeAds.map((Ad e) => AdView(ad: e)).toList(),
+        ),
+        Expanded(
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Row(
+              children: fakeAds.asMap().entries.map((e) {
+                return Container(
+                  width: 12.0,
+                  height: 12.0,
+                  margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: e.key == _index ? Colors.black : Colors.grey,
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
