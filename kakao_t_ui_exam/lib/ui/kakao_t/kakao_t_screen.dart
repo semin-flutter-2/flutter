@@ -56,6 +56,7 @@ class _KakaoTScreenState extends State<KakaoTScreen> {
 
   Widget _buildAds(PageController controller) {
     return Stack(
+      alignment: Alignment.bottomCenter,
       children: [
         CarouselSlider(
           options: CarouselOptions(
@@ -71,23 +72,19 @@ class _KakaoTScreenState extends State<KakaoTScreen> {
               }),
           items: fakeAds.map((Ad e) => AdView(ad: e)).toList(),
         ),
-        Expanded(
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Row(
-              children: fakeAds.asMap().entries.map((e) {
-                return Container(
-                  width: 12.0,
-                  height: 12.0,
-                  margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: e.key == _index ? Colors.black : Colors.grey,
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: fakeAds.asMap().entries.map((e) {
+            return Container(
+              width: 12.0,
+              height: 12.0,
+              margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: e.key == _index ? Colors.black : Colors.grey,
+              ),
+            );
+          }).toList(),
         ),
       ],
     );
