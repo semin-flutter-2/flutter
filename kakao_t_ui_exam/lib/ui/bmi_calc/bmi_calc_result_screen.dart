@@ -4,24 +4,27 @@ class BmiCalcResultScreen extends StatelessWidget {
   final double height;
   final double weight;
 
-  const BmiCalcResultScreen(this.height, this.weight, {Key? key})
-      : super(key: key);
+  const BmiCalcResultScreen({
+    Key? key,
+    required this.height,
+    required this.weight,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final bmi = weight / ((height / 100) * (height / 100));
 
     return Scaffold(
-      appBar: AppBar(title: Text('비만도 계산기')),
+      appBar: AppBar(title: const Text('비만도 계산기')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
               _calcBmi(bmi),
-              style: TextStyle(fontSize: 36),
+              style: const TextStyle(fontSize: 36),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             _buildIcon(bmi),
@@ -49,19 +52,19 @@ class BmiCalcResultScreen extends StatelessWidget {
 
   Widget _buildIcon(double bmi) {
     if (bmi >= 23) {
-      return Icon(
+      return const Icon(
         Icons.sentiment_very_dissatisfied,
         color: Colors.red,
         size: 100,
       );
     } else if (bmi >= 18.5) {
-      return Icon(
+      return const Icon(
         Icons.sentiment_satisfied,
         color: Colors.green,
         size: 100,
       );
     } else {
-      return Icon(
+      return const Icon(
         Icons.sentiment_dissatisfied,
         color: Colors.orange,
         size: 100,

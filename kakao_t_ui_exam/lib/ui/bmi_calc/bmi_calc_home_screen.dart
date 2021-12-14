@@ -36,7 +36,7 @@ class _BmiCalcHomeScreenState extends State<BmiCalcHomeScreen> {
             children: [
               TextFormField(
                 controller: _heightTextEditingController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: '키',
                 ),
@@ -49,12 +49,12 @@ class _BmiCalcHomeScreenState extends State<BmiCalcHomeScreen> {
                 },
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               TextFormField(
                 controller: _weightTextEditingController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: '몸무게',
                 ),
@@ -80,13 +80,13 @@ class _BmiCalcHomeScreenState extends State<BmiCalcHomeScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => BmiCalcResultScreen(
-                                double.parse(_heightTextEditingController.text.trim()),
-                                double.parse(_weightTextEditingController.text.trim()),
+                                height: double.parse(_heightTextEditingController.text.trim()),
+                                weight: double.parse(_weightTextEditingController.text.trim()),
                               )),
                         );
                       }
                     },
-                    child: Text('계산'),
+                    child: const Text('계산'),
                   ),
                 ],
               ),

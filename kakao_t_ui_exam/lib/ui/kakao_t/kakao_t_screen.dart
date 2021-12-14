@@ -21,7 +21,7 @@ class _KakaoTScreenState extends State<KakaoTScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
+        title: const Text(
           '카카오 T',
           style: TextStyle(color: Colors.black),
         ),
@@ -49,7 +49,7 @@ class _KakaoTScreenState extends State<KakaoTScreen> {
       crossAxisCount: 4,
       shrinkWrap: true,
       childAspectRatio: 2.5 / 3.2,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       children: fakeMenus.map((menu) => MenuWidget(menu: menu)).toList(),
     );
   }
@@ -78,7 +78,7 @@ class _KakaoTScreenState extends State<KakaoTScreen> {
             return Container(
               width: 12.0,
               height: 12.0,
-              margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+              margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: e.key == _index ? Colors.black : Colors.grey,
@@ -94,13 +94,13 @@ class _KakaoTScreenState extends State<KakaoTScreen> {
     // ListView 보다 Column만 두는게 더 깔끔하다
     return ListView(
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       children: List.generate(
           50,
           (index) => ListTile(
-                leading: Icon(Icons.notifications),
+                leading: const Icon(Icons.notifications),
                 title: Text('공지 $index'),
-                trailing: Icon(
+                trailing: const Icon(
                   Icons.navigate_next_outlined,
                 ),
               )),
