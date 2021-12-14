@@ -4,8 +4,8 @@ class Menu {
   final bool isFavorite;
 
   Menu({
-    this.imageUrl,
-    this.title,
-    this.isFavorite,
+    required this.imageUrl,
+    required this.title,
+    required this.isFavorite,
   });
 }

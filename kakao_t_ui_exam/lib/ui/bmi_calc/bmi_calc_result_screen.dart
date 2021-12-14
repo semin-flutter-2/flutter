@@ -4,7 +4,7 @@ class BmiCalcResultScreen extends StatelessWidget {
   final double height;
   final double weight;
 
-  const BmiCalcResultScreen(this.height, this.weight, {Key key})
+  const BmiCalcResultScreen(this.height, this.weight, {Key? key})
       : super(key: key);
 
   @override

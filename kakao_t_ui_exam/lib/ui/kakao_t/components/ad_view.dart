@@ -5,8 +5,8 @@ class AdView extends StatelessWidget {
   final Ad ad;
 
   const AdView({
-    Key key,
-    this.ad,
+    Key? key,
+    required this.ad,
   }) : super(key: key);
 
   @override

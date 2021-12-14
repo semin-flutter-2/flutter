@@ -4,7 +4,7 @@ import 'package:kakao_t_ui_exam/model/menu.dart';
 class DetailScreen extends StatelessWidget {
   final Menu menu;
 
-  const DetailScreen({Key key, this.menu}) : super(key: key);
+  const DetailScreen({Key? key, required this.menu}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

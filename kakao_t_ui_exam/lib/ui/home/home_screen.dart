@@ -4,7 +4,7 @@ import 'package:kakao_t_ui_exam/ui/counter/counter_screen.dart';
 import 'package:kakao_t_ui_exam/ui/kakao_t/kakao_t_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();

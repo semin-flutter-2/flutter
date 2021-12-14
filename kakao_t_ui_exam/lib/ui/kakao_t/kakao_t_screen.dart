@@ -7,7 +7,7 @@ import 'components/ad_view.dart';
 import 'components/menu_widget.dart';
 
 class KakaoTScreen extends StatefulWidget {
-  const KakaoTScreen({Key key}) : super(key: key);
+  const KakaoTScreen({Key? key}) : super(key: key);
 
   @override
   State<KakaoTScreen> createState() => _KakaoTScreenState();
