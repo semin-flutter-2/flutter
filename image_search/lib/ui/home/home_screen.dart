@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_search/data/fake_data.dart';
+import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
