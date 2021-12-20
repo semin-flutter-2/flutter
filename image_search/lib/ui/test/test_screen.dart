@@ -4,22 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_search/model/album.dart';
 
-class TestScreen extends StatefulWidget {
+class TestScreen extends StatelessWidget {
   const TestScreen({Key? key}) : super(key: key);
-
-  @override
-  State<TestScreen> createState() => _TestScreenState();
-}
-
-class _TestScreenState extends State<TestScreen> {
-  Album? _album;
-
-  Future<void> init() async {
-    Album album = await fetchAlbum();
-    setState(() {
-      _album = album;
-    });
-  }
 
   // 오래 걸리는 처리
   Future<Album> fetchAlbum() async {
@@ -39,31 +25,40 @@ class _TestScreenState extends State<TestScreen> {
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    init();
-
-    // fetchAlbum().then((album) {
-    //   setState(() {
-    //     print('!!!!!!!!!');
-    //     _album = album;
-    //   });
-    // });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Network Sample'),
       ),
-      body: _album == null
-          ? const Center(child: CircularProgressIndicator())
-          : Text(
-            '${_album!.id} : ${_album.toString()}',
-            style: const TextStyle(fontSize: 30),
-          ),
+      body: FutureBuilder<Album>(
+        future: fetchAlbum(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const Center(child: Text('네트워크 에러!!!'));
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          // 데이터가 없다면
+          if (!snapshot.hasData) {
+            return const Center(child: Text('데이터가 없습니다'));
+          }
+
+          // 데이터가 여기에서는 무조건 있는 상황
+          final Album album = snapshot.data!;
+
+          return _buildBody(album);
+        },
+      ),
+    );
+  }
+
+  Widget _buildBody(Album album) {
+    return Text(
+      '${album.id} : ${album.toString()}',
+      style: const TextStyle(fontSize: 30),
     );
   }
 }
