@@ -14,6 +14,13 @@ class TestScreen extends StatefulWidget {
 class _TestScreenState extends State<TestScreen> {
   Album? _album;
 
+  Future<void> init() async {
+    Album album = await fetchAlbum();
+    setState(() {
+      _album = album;
+    });
+  }
+
   // 오래 걸리는 처리
   Future<Album> fetchAlbum() async {
     // await [Future가 리턴되는 코드]
@@ -35,12 +42,14 @@ class _TestScreenState extends State<TestScreen> {
   void initState() {
     super.initState();
 
-    fetchAlbum().then((album) {
-      setState(() {
-        print('!!!!!!!!!');
-        _album = album;
-      });
-    });
+    init();
+
+    // fetchAlbum().then((album) {
+    //   setState(() {
+    //     print('!!!!!!!!!');
+    //     _album = album;
+    //   });
+    // });
   }
 
   @override
@@ -49,9 +58,12 @@ class _TestScreenState extends State<TestScreen> {
       appBar: AppBar(
         title: const Text('Network Sample'),
       ),
-      body: Container(
-        child: Text(_album.toString()),
-      ),
+      body: _album == null
+          ? const Center(child: CircularProgressIndicator())
+          : Text(
+            '${_album!.id} : ${_album.toString()}',
+            style: const TextStyle(fontSize: 30),
+          ),
     );
   }
 }
