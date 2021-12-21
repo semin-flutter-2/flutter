@@ -10,4 +10,8 @@ class Photo {
       previewURL: json['previewURL'],
     );
   }
+
+  static List<Photo> listToPhotos(List jsonList) {
+    return jsonList.map((e) => Photo.fromJson(e)).toList();
+  }
 }

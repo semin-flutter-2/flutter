@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_search/model/album.dart';
+import 'package:image_search/model/photo.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({Key? key}) : super(key: key);
@@ -12,6 +13,22 @@ class TestScreen extends StatefulWidget {
 }
 
 class _TestScreenState extends State<TestScreen> {
+  Future<List<Photo>> fetchPhotos() async {
+    // await [Future가 리턴되는 코드]
+    final response = await http
+        .get(Uri.parse('https://pixabay.com/api/?key=17828481-17c071c7f8eadf406822fada3&q=iphone&image_type=photo&per_page=100'));
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      return Photo.listToPhotos(jsonDecode(response.body)['hits']);
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
+  }
+
   Future<List<Album>> fetchAlbums() async {
     // await [Future가 리턴되는 코드]
     final response = await http
@@ -87,8 +104,8 @@ class _TestScreenState extends State<TestScreen> {
             },
             child: const Text('Album들 가져오기'),
           ),
-          FutureBuilder<List<Album>>(
-            future: fetchAlbums(),
+          FutureBuilder<List<Photo>>(
+            future: fetchPhotos(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 print(snapshot.error.toString());
@@ -105,12 +122,48 @@ class _TestScreenState extends State<TestScreen> {
               }
 
               // 데이터가 여기에서는 무조건 있는 상황
-              final List<Album> albums = snapshot.data!;
+              final List<Photo> photos = snapshot.data!;
 
-              return _buildAlbums(albums);
+              return _buildPhotos(photos);
             },
           ),
+          // FutureBuilder<List<Album>>(
+          //   future: fetchAlbums(),
+          //   builder: (context, snapshot) {
+          //     if (snapshot.hasError) {
+          //       print(snapshot.error.toString());
+          //       return const Center(child: Text('네트워크 에러!!!'));
+          //     }
+          //
+          //     if (snapshot.connectionState == ConnectionState.waiting) {
+          //       return const Center(child: CircularProgressIndicator());
+          //     }
+          //
+          //     // 데이터가 없다면
+          //     if (!snapshot.hasData) {
+          //       return const Center(child: Text('데이터가 없습니다'));
+          //     }
+          //
+          //     // 데이터가 여기에서는 무조건 있는 상황
+          //     final List<Album> albums = snapshot.data!;
+          //
+          //     return _buildAlbums(albums);
+          //   },
+          // ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildPhotos(List<Photo> photos) {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: photos.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(photos[index].previewURL),
+          );
+        },
       ),
     );
   }
