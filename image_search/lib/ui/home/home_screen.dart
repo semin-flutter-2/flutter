@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:image_search/data/photo_api.dart';
+import 'package:image_search/data/photo_api_provider.dart';
 import 'package:image_search/model/picture_result.dart';
 
 class HomeScreen extends StatefulWidget {
-  PhotoApi api;
-
-  HomeScreen({Key? key, required this.api}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -20,7 +19,14 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     // 한번 해야 하는 코드
-    _showResult('iphone');
+
+    // initState에서 Context 접근 바로 안 됨
+    // 여기까지는 context == null
+    Future.microtask(() {
+      // 아주 잠깐 딜레이
+      // 여기부터는 context 가 null 아님
+      _showResult('iphone');
+    });
   }
 
   @override
@@ -31,7 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _showResult(String query) async {
-    List<Picture> pictures = await widget.api.fetchPhotos(query);
+    final api = PhotoApiProvider.of(context).api;
+    List<Picture> pictures = await api.fetchPhotos(query);
     setState(() {
       _pictures = pictures;
     });
