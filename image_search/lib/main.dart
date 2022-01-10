@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:image_search/data/photo_api_provider.dart';
 import 'package:image_search/data/pixabay_api.dart';
 import 'package:image_search/ui/home/home_screen.dart';
-import 'package:image_search/ui/test/test_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,8 +18,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: PhotoApiProvider(
-        api: PixabayApi(),
+      home: Provider(
+        create: (_) => PixabayApi(),
         child: const HomeScreen(),
       ),
     );

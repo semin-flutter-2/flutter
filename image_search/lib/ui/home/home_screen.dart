@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:image_search/data/photo_api.dart';
-import 'package:image_search/data/photo_api_provider.dart';
+import 'package:image_search/data/pixabay_api.dart';
 import 'package:image_search/model/picture_result.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -37,7 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _showResult(String query) async {
-    final api = PhotoApiProvider.of(context).api;
+    // final api = PhotoApiProvider.of(context).api;
+    final api = context.read<PixabayApi>();
     List<Picture> pictures = await api.fetchPhotos(query);
     setState(() {
       _pictures = pictures;
