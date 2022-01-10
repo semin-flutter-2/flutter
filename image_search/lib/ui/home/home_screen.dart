@@ -1,12 +1,11 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:image_search/data/fake_data.dart';
-import 'package:image_search/data/pixabay_api.dart';
+import 'package:image_search/data/photo_api.dart';
 import 'package:image_search/model/picture_result.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  PhotoApi api;
+
+  HomeScreen({Key? key, required this.api}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -15,7 +14,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<Picture> _pictures = [];
 
-  final _api = PixabayApi();
   final _textEditingController = TextEditingController();
 
   @override
@@ -33,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _showResult(String query) async {
-    List<Picture> pictures = await _api.fetchPhotos(query);
+    List<Picture> pictures = await widget.api.fetchPhotos(query);
     setState(() {
       _pictures = pictures;
     });
