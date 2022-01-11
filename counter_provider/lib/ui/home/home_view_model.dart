@@ -1,13 +1,16 @@
+import 'package:counter/data/counter.dart';
 import 'package:flutter/material.dart';
 
 class HomeViewModel with ChangeNotifier {
-  int _counter = 0;
+  final Counter _counter;
 
-  int get counter => _counter;
+  HomeViewModel(this._counter);
+
+  int get counter => _counter.counter;
 
   void increment() {
     // 상태 바꾸고
-    _counter++;
+    _counter.increment();
 
     notifyListeners();
   }
