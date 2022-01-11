@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:image_search/data/pixabay_api.dart';
-import 'package:image_search/model/picture_result.dart';
+import 'package:image_search/ui/home/home_view_model.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,7 +10,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Picture> _pictures = [];
 
   final _textEditingController = TextEditingController();
 
@@ -37,16 +35,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _showResult(String query) async {
-    // final api = PhotoApiProvider.of(context).api;
-    final api = context.read<PixabayApi>();
-    List<Picture> pictures = await api.fetchPhotos(query);
-    setState(() {
-      _pictures = pictures;
-    });
+    context.read<HomeViewModel>().fetchPhoto(query);
   }
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<HomeViewModel>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('이미지 검색'),
@@ -68,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: GridView.count(
               crossAxisCount: 2,
               children:
-                  _pictures.map((e) => Image.network(e.previewURL)).toList(),
+                  viewModel.pictures.map((e) => Image.network(e.previewURL)).toList(),
             ),
           ),
         ],
