@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
               'You have pushed the button this many times:',
             ),
             Text(
-              '${viewModel.counter}',
+              '${viewModel.count}',
               style: Theme.of(context).textTheme.headline4,
             ),
           ],

@@ -4,11 +4,8 @@ class NormalCounter implements Counter {
   int _counter = 0;
 
   @override
-  int get counter => _counter;
-
-  @override
-  void increment() {
-    // 상태 바꾸고
+  int increment() {
     _counter++;
+    return _counter;
   }
 }

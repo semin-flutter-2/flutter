@@ -6,11 +6,13 @@ class HomeViewModel with ChangeNotifier {
 
   HomeViewModel(this._counter);
 
-  int get counter => _counter.counter;
+  int _count = 0;
+
+  int get count => _count;
 
   void increment() {
     // 상태 바꾸고
-    _counter.increment();
+    _count = _counter.increment();
 
     notifyListeners();
   }
