@@ -1,4 +1,4 @@
-import 'package:counter/data/counter.dart';
+import 'package:counter/domain/counter.dart';
 import 'package:flutter/material.dart';
 
 class HomeViewModel with ChangeNotifier {

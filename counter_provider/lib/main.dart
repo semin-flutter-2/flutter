@@ -1,4 +1,5 @@
-import 'package:counter/data/counter.dart';
+import 'package:counter/data/normal_counter.dart';
+import 'package:counter/data/double_counter.dart';
 import 'package:counter/ui/home/home_page.dart';
 import 'package:counter/ui/home/home_view_model.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: ChangeNotifierProvider<HomeViewModel>(
-        create: (_) => HomeViewModel(Counter()),
+        create: (_) => HomeViewModel(DoubleCounter()),
         child: const HomePage(),
       ),
     );
