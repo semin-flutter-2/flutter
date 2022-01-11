@@ -6,7 +6,7 @@ class HomeViewModel with ChangeNotifier {
   // State
   List<Picture> pictures = [];
 
-  PhotoApi _api;
+  final PhotoApi _api;
 
   HomeViewModel(this._api);
 

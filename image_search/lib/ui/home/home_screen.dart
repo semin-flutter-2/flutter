@@ -35,7 +35,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _showResult(String query) async {
-    context.read<HomeViewModel>().fetchPhoto(query);
+    final viewModel = context.read<HomeViewModel>();
+    viewModel.fetchPhoto(query);
   }
 
   @override
