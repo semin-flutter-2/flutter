@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:image_search/data/data_source/remote/picture_remote_data_source.dart';
 import 'package:image_search/data/repository/picture_repository_impl.dart';
-import 'package:image_search/ui/home/home_screen.dart';
-import 'package:image_search/ui/home/home_view_model.dart';
+import 'package:image_search/presentation/home/home_screen.dart';
+import 'package:image_search/presentation/home/home_view_model.dart';
 import 'package:provider/provider.dart';
 
 void main() {

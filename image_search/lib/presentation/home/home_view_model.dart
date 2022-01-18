@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:image_search/data/repository/picture_repository.dart';
-import 'package:image_search/model/picture_result.dart';
+import 'package:image_search/domain/repository/picture_repository.dart';
+import 'package:image_search/domain/model/picture.dart';
 
 class HomeViewModel with ChangeNotifier {
   // State

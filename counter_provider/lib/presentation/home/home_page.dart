@@ -1,4 +1,4 @@
-import 'package:counter/ui/home/home_view_model.dart';
+import 'package:counter/presentation/home/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

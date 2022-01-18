@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:image_search/model/picture_result.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_search/domain/model/picture.dart';
 
 class PictureRemoteDataSource {
   Future<List<Picture>> fetchPhotos(String query) async {

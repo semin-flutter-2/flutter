@@ -1,8 +1,8 @@
 import 'package:counter/data/data_source/counter.dart';
 import 'package:counter/data/repository/normal_counter_repository_impl.dart';
 import 'package:counter/data/repository/double_counter_repository_impl.dart';
-import 'package:counter/ui/home/home_page.dart';
-import 'package:counter/ui/home/home_view_model.dart';
+import 'package:counter/presentation/home/home_page.dart';
+import 'package:counter/presentation/home/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
