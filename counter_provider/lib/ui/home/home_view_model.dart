@@ -1,8 +1,8 @@
-import 'package:counter/domain/counter.dart';
+import 'package:counter/data/repository/count_repository.dart';
 import 'package:flutter/material.dart';
 
 class HomeViewModel with ChangeNotifier {
-  final Counter _counter;
+  final CountRepository _counter;
 
   HomeViewModel(this._counter);
 
