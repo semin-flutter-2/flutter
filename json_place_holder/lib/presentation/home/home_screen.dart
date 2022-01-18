@@ -33,8 +33,24 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: viewModel.isLoading
           ? const CircularProgressIndicator()
-          : ListView(
-              children: viewModel.posts.map((e) => Text('${e.id}')).toList(),
+          : Column(
+              children: [
+                Expanded(
+                  child: ListView(
+                    children:
+                        viewModel.posts.map((e) => Text('${e.id}')).toList(),
+                  ),
+                ),
+                Row(
+                  children: List.generate(10, (index) => index + 1)
+                      .map((page) => TextButton(
+                          onPressed: () {
+                            viewModel.fetch(page);
+                          },
+                          child: Text('$page')))
+                      .toList(),
+                )
+              ],
             ),
     );
   }
