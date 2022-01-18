@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:image_search/data/data_source/remote/picture_remote_data_source.dart';
 import 'package:image_search/data/repository/picture_repository_impl.dart';
 import 'package:image_search/presentation/home/home_screen.dart';
@@ -23,7 +24,9 @@ class MyApp extends StatelessWidget {
       home: ChangeNotifierProvider<HomeViewModel>(
         create: (_) => HomeViewModel(
           PictureRepositoryImpl(
-            PictureRemoteDataSource(),
+            PictureRemoteDataSource(
+              Client(),
+            ),
           ),
         ),
         // State
