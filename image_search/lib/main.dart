@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:image_search/data/pixabay_api.dart';
+import 'package:image_search/data/data_source/remote/picture_remote_data_source.dart';
+import 'package:image_search/data/repository/picture_repository_impl.dart';
 import 'package:image_search/ui/home/home_screen.dart';
 import 'package:image_search/ui/home/home_view_model.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: ChangeNotifierProvider<HomeViewModel>(
-        create: (_) => HomeViewModel(PixabayApi()), // State
+        create: (_) => HomeViewModel(
+          PictureRepositoryImpl(
+            PictureRemoteDataSource(),
+          ),
+        ),
+        // State
         child: const HomeScreen(),
       ),
     );
