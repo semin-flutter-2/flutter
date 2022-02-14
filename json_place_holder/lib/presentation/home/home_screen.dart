@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:json_place_holder/domain/model/post.dart';
 import 'package:json_place_holder/presentation/home/home_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<HomeViewModel>();
+    viewModel.posts.add(value);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Posts'),
