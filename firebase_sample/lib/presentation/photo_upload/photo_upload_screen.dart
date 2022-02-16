@@ -1,4 +1,4 @@
-import 'dart:typed_data';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,7 +13,7 @@ class PhotoUploadScreen extends StatefulWidget {
 class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
   final ImagePicker _picker = ImagePicker();
 
-  Uint8List? _memory;
+  XFile? _xFile;
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +31,15 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                 // 취소
               } else {
                 // 사진 선택
-                final bytes = await image.readAsBytes();
                 setState(() {
-                  _memory = bytes;
+                  _xFile = image;
                 });
               }
             },
             child: SizedBox(
               width: double.infinity,
               height: 300,
-              child: _memory == null ? Placeholder() : Image.memory(_memory!),
+              child: _xFile == null ? Placeholder() : Image.file(File(_xFile!.path)),
             ),
           ),
           TextField(),
