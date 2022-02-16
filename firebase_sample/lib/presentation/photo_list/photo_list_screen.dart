@@ -21,7 +21,7 @@ class PhotoListScreen extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const PhotoUploadScreen()),
+            MaterialPageRoute(builder: (context) => PhotoUploadScreen()),
           );
         },
         child: const Icon(Icons.add),
