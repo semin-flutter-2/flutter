@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_sample/presentation/photo_upload/photo_upload_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -11,9 +12,19 @@ class PhotoUploadScreen extends StatefulWidget {
 }
 
 class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
+
+  final viewModel = PhotoUploadViewModel();
   final ImagePicker _picker = ImagePicker();
 
   XFile? _xFile;
+
+  final titleTextController = TextEditingController();
+
+  @override
+  void dispose() {
+    titleTextController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +53,15 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
               child: _xFile == null ? Placeholder() : Image.file(File(_xFile!.path)),
             ),
           ),
-          TextField(),
+          TextField(
+            controller: titleTextController,
+          ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              if (_xFile != null) {
+                viewModel.uploadPhoto(_xFile!.path, titleTextController.text);
+              }
+            },
             child: Text('업로드'),
           ),
         ],
