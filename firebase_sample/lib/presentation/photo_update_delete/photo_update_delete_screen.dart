@@ -1,19 +1,23 @@
 import 'dart:io';
 
+import 'package:firebase_sample/domain/model/photo.dart';
+import 'package:firebase_sample/presentation/photo_update_delete/photo_update_delete_view_model.dart';
 import 'package:firebase_sample/presentation/photo_upload/photo_upload_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-class PhotoUploadScreen extends StatefulWidget {
-  PhotoUploadScreen({Key? key}) : super(key: key);
+class PhotoUpdateDeleteScreen extends StatefulWidget {
+  final String id;
+  final Photo photo;
+
+  const PhotoUpdateDeleteScreen(this.id, this.photo, {Key? key}) : super(key: key);
 
   @override
-  State<PhotoUploadScreen> createState() => _PhotoUploadScreenState();
+  State<PhotoUpdateDeleteScreen> createState() => _PhotoUpdateDeleteScreenState();
 }
 
-class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
-
+class _PhotoUpdateDeleteScreenState extends State<PhotoUpdateDeleteScreen> {
   final ImagePicker _picker = ImagePicker();
 
   XFile? _xFile;
@@ -24,8 +28,10 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
   void initState() {
     super.initState();
 
+    titleTextController.text = widget.photo.title;
+
     Future.microtask(() {
-      final viewModel = context.read<PhotoUploadViewModel>();
+      final viewModel = context.read<PhotoUpdateDeleteViewModel>();
       viewModel.eventStream.listen((event) {
         if (event == 'end') {
           print('???????????????????');
@@ -45,7 +51,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<PhotoUploadViewModel>();
+    final viewModel = context.watch<PhotoUpdateDeleteViewModel>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('사진 업로드'),
@@ -55,7 +61,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
           InkWell(
             onTap: () async {
               final XFile? image =
-                  await _picker.pickImage(source: ImageSource.gallery);
+              await _picker.pickImage(source: ImageSource.gallery);
               if (image == null) {
                 // 취소
               } else {
@@ -68,7 +74,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
             child: SizedBox(
               width: double.infinity,
               height: 300,
-              child: _xFile == null ? Placeholder() : Image.file(File(_xFile!.path)),
+              child: _xFile == null ? Image.network(widget.photo.url) : Image.file(File(_xFile!.path)),
             ),
           ),
           TextField(
@@ -77,15 +83,15 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
           ElevatedButton(
             onPressed: () {
               if (_xFile != null) {
-                viewModel.uploadPhoto(_xFile!.path, titleTextController.text);
+                viewModel.updatePhoto(widget.id, widget.photo, _xFile!.path, titleTextController.text);
               }
             },
-            child: Text('업로드'),
+            child: Text('수정'),
           ),
           if (viewModel.isUploading) Row(
             children: const [
               CircularProgressIndicator(),
-              Text('업로드 중 .....'),
+              Text('수정 중 .....'),
             ],
           ),
         ],

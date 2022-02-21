@@ -1,4 +1,5 @@
 import 'package:firebase_sample/presentation/auth_gate/aute_gate.dart';
+import 'package:firebase_sample/presentation/photo_update_delete/photo_update_delete_view_model.dart';
 import 'package:firebase_sample/presentation/photo_upload/photo_upload_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,8 +14,15 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(
-    ChangeNotifierProvider.value(
-      value: PhotoUploadViewModel(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: PhotoUploadViewModel(),
+        ),
+        ChangeNotifierProvider.value(
+          value: PhotoUpdateDeleteViewModel(),
+        ),
+      ],
       child: const MyApp(),
     ),
   );
