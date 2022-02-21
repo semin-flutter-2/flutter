@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,6 +15,10 @@ class PhotoUploadViewModel with ChangeNotifier {
             fromFirestore: (snapshot, _) => Photo.fromJson(snapshot.data()!),
             toFirestore: (photo, _) => photo.toJson(),
           );
+
+  // 이벤트 처리
+  final _streamController = StreamController<String>.broadcast();
+  Stream<String> get eventStream => _streamController.stream;
 
   // 2. URL 얻기
   Future<String> _getDownloadURL(String ref) async {
@@ -57,6 +62,7 @@ class PhotoUploadViewModel with ChangeNotifier {
     // 업로드 중!!!!!!!!!!!!!!!!
     isUploading = true;
     notifyListeners();
+    // _streamController.add('start');
 
     // 1. 파일 업로드 -> URL 얻기
     final downloadUrl = await _uploadFile(filePath);
@@ -71,5 +77,6 @@ class PhotoUploadViewModel with ChangeNotifier {
     // 업로드 끝!!!!!!!!!!!!!!!!
     isUploading = false;
     notifyListeners();
+    _streamController.add('end');
   }
 }

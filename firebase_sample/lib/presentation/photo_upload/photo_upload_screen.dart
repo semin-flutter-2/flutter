@@ -21,6 +21,22 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
   final titleTextController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+
+    Future.microtask(() {
+      final viewModel = context.read<PhotoUploadViewModel>();
+      viewModel.eventStream.listen((event) {
+        if (event == 'end') {
+          print('???????????????????');
+          print(event);
+          Navigator.pop(context);
+        }
+      });
+    });
+  }
+
+  @override
   void dispose() {
     titleTextController.dispose();
     super.dispose();
