@@ -1,6 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_sample/domain/model/photo.dart';
 
 class PhotoListViewModel {
+  final photosRef =
+      FirebaseFirestore.instance.collection('photos').withConverter<Photo>(
+            fromFirestore: (snapshot, _) => Photo.fromJson(snapshot.data()!),
+            toFirestore: (photo, _) => photo.toJson(),
+          );
+
   final photos = [
     Photo(
       url:

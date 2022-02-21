@@ -1,7 +1,9 @@
+import 'package:firebase_sample/domain/model/photo.dart';
 import 'package:firebase_sample/presentation/photo_list/components/photo_item.dart';
 import 'package:firebase_sample/presentation/photo_list/photo_list_view_model.dart';
 import 'package:firebase_sample/presentation/photo_upload/photo_upload_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/firestore.dart';
 
 class PhotoListScreen extends StatelessWidget {
   PhotoListScreen({Key? key}) : super(key: key);
@@ -30,8 +32,17 @@ class PhotoListScreen extends StatelessWidget {
   }
 
   Widget _buildBody() {
-    return ListView(
-      children: viewModel.photos.map((e) => PhotoItem(e)).toList(),
+    return FirestoreListView<Photo>(
+      query: viewModel.photosRef,
+      loadingBuilder: (context) => const CircularProgressIndicator(),
+      errorBuilder: (context, error, stackTrace) => ListTile(
+        title: Text(error.toString()),
+        subtitle: Text(stackTrace.toString()),
+      ),
+      itemBuilder: (context, snapshot) {
+        Photo photo = snapshot.data();
+        return PhotoItem(photo);
+      },
     );
   }
 }
