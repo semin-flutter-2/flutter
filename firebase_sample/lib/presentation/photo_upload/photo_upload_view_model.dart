@@ -4,8 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_sample/domain/model/photo.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
-class PhotoUploadViewModel {
+class PhotoUploadViewModel with ChangeNotifier {
+  bool isUploading = false;
+
   final photosRef =
       FirebaseFirestore.instance.collection('photos').withConverter<Photo>(
             fromFirestore: (snapshot, _) => Photo.fromJson(snapshot.data()!),
@@ -51,6 +54,10 @@ class PhotoUploadViewModel {
   }
 
   Future<void> uploadPhoto(String filePath, String title) async {
+    // 업로드 중!!!!!!!!!!!!!!!!
+    isUploading = true;
+    notifyListeners();
+
     // 1. 파일 업로드 -> URL 얻기
     final downloadUrl = await _uploadFile(filePath);
 
@@ -61,5 +68,8 @@ class PhotoUploadViewModel {
       // 에러처리~~
     }
 
+    // 업로드 끝!!!!!!!!!!!!!!!!
+    isUploading = false;
+    notifyListeners();
   }
 }

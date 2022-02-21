@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_sample/presentation/photo_upload/photo_upload_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class PhotoUploadScreen extends StatefulWidget {
   PhotoUploadScreen({Key? key}) : super(key: key);
@@ -13,7 +14,6 @@ class PhotoUploadScreen extends StatefulWidget {
 
 class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
 
-  final viewModel = PhotoUploadViewModel();
   final ImagePicker _picker = ImagePicker();
 
   XFile? _xFile;
@@ -28,6 +28,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<PhotoUploadViewModel>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('사진 업로드'),
@@ -63,6 +64,12 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
               }
             },
             child: Text('업로드'),
+          ),
+          if (viewModel.isUploading) Row(
+            children: const [
+              CircularProgressIndicator(),
+              Text('업로드 중 .....'),
+            ],
           ),
         ],
       ),
